@@ -7,10 +7,13 @@ import {
   isLegacyEdge,
 } from 'react-device-detect';
 
+import loadVideo from './loadVideo';
+
 const App = () => {
   const [message, setMessage] = useState('');
-  const [video, setVideo] = useState<File | null>();
+  const [video, setVideo] = useState<any>();
   const [transcodedVideo, setTranscodedVideo] = useState('');
+  const [transcodeProgress, setTranscodeProgress] = useState(0);
 
   const ffmpeg = createFFmpeg({
     log: true,
@@ -21,13 +24,35 @@ const App = () => {
     setVideo(event.currentTarget.files[0]);
   };
 
+  ffmpeg.setProgress(({ ratio }) => {
+    setTranscodeProgress(ratio * 100);
+  });
+
   const doTranscode = async () => {
     setMessage('Loading ffmpeg-core.js');
     await ffmpeg.load();
     setMessage('Start transcoding, please wait this could take a while');
     ffmpeg.FS('writeFile', 'test.avi', await fetchFile(video));
     // needs fix here. videos get cut instead of transcoded to under 8mb
-    await ffmpeg.run('-i', 'test.avi', '-fs', '7M', 'test.mp4');
+    const videoDuration: any = await loadVideo(video);
+    const fileBitrate = 8192 / videoDuration.duration;
+    console.log(fileBitrate);
+    await ffmpeg.run(
+      '-i',
+      'test.avi',
+      '-b',
+      `${fileBitrate}k`,
+      '-vcodec',
+      'libx264',
+      '-crf',
+      '20',
+      '-pix_fmt',
+      'yuv420p',
+      '-movflags',
+      '+faststart',
+      'test.mp4'
+    );
+
     setMessage('');
     const data = ffmpeg.FS('readFile', 'test.mp4');
     setTranscodedVideo(
@@ -82,9 +107,18 @@ const App = () => {
         )}
 
         {!transcodedVideo && video && video.type.includes('video') && (
-          <button className='button is-link mb-4' onClick={doTranscode}>
-            Start transcoding
-          </button>
+          <>
+            <button className='button is-link mb-4' onClick={doTranscode}>
+              Start transcoding
+            </button>
+            <progress
+              className='progress is-link'
+              value={transcodeProgress}
+              max='100'
+            >
+              {transcodeProgress}%
+            </progress>
+          </>
         )}
 
         {!transcodedVideo && video && !video.type.includes('video') && (
