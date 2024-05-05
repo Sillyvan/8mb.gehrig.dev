@@ -1,5 +1,26 @@
-# Getting Started with Create React App
+# 8mb.gehrig.dev
 
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
+8mb.gehrig.dev is a web application that leverages WebAssembly and FFmpeg to perform on-device video compression, reducing video file sizes to under 8MB. This ensures that the entire video processing takes place locally, without the need to upload sensitive data to external servers.
+
+## Features
+
+- **On-Device Compression:** All video compression operations are performed locally in the user's browser using WebAssembly and FFmpeg.
+
+- **File Size Limit:** The goal of the application is to reduce video file sizes to under 8MB, providing a convenient tool for users to compress videos for various purposes.
+
+- **User-Friendly Interface:** The web application provides an intuitive and user-friendly interface for uploading, processing, and downloading compressed videos.
+
+## Getting Started
+
+
+If you want to contribute or run the application locally, follow these steps:
+
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/Sillyvan/8mb.gehrig.dev
+   
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -10,37 +31,3 @@ In the project directory, you can run:
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
